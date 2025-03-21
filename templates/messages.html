@@ -14,6 +14,16 @@
                 <p class="fw-bold text-dark">👤 {{ message.username }} <span class="text-muted">({{ message.user_email }})</span></p>
                 <p class="text-muted">⏳ {{ message.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
                 <p>💬 {{ message.message }}</p>
+
+                {% if message.replies %}
+                    <div class="admin-reply mt-3 p-2 rounded">
+                        <p class="fw-bold text-danger">🔴 ადმინისტრატორის პასუხი:</p>
+                        {% for reply in message.replies %}
+                            <p class="text-muted">📅 {{ reply.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                            <p>📝 {{ reply.reply_text }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
         {% else %}
             <p class="text-center text-muted">❌ შეტყობინებები ჯერ არ არის.</p>
@@ -49,6 +59,13 @@
     .message-box:hover {
         background: rgba(0, 123, 255, 0.1);
         transform: scale(1.02);
+    }
+
+    /* ადმინისტრატორის პასუხი */
+    .admin-reply {
+        background: rgba(255, 0, 0, 0.05);
+        border-left: 5px solid #dc3545;
+        padding: 10px;
     }
 
     /* ღილაკის ეფექტი */
